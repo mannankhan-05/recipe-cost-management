@@ -1,0 +1,39 @@
+1. Menu.belongsToMany(Ingredient, { through: MenuIngredient, foreignKey: 'menu_id' });
+Menu.belongsToMany(Ingredient, ... ): This is defining a many-to-many relationship between 
+the Menu model and the Ingredient model. It indicates that a Menu can have many Ingredients, 
+and an Ingredient can belong to many Menus.
+
+{ through: MenuIngredient, ... }: This specifies that the relationship is mediated through 
+the MenuIngredient model (the join table). This join table will store the associations 
+between Menus and Ingredients.
+
+foreignKey: 'menu_id': This sets the foreign key in the MenuIngredient table that references 
+the primary key of the Menu model. In other words, the menu_id column in the MenuIngredient 
+table will hold the IDs of Menus.
+
+
+
+2. Ingredient.belongsToMany(Menu, { through: MenuIngredient, foreignKey: 'ingredient_id' });
+Ingredient.belongsToMany(Menu, ... ): This is defining the other side of the many-to-many 
+relationship. It indicates that an Ingredient can belong to many Menus, and a Menu can 
+have many Ingredients.
+
+{ through: MenuIngredient, ... }: Again, this specifies that the relationship is mediated 
+through the MenuIngredient model (the join table).
+
+foreignKey: 'ingredient_id': This sets the foreign key in the MenuIngredient table that 
+references the primary key of the Ingredient model. In other words, the ingredient_id 
+column in the MenuIngredient table will hold the IDs of Ingredients.
+
+
+
+Summary
+These lines are setting up a many-to-many relationship between the Menu and Ingredient 
+models using the MenuIngredient join table. This allows for each menu to have multiple 
+ingredients and each ingredient to be part of multiple menus, with the relationship 
+details (like quantity) stored in the MenuIngredient table.
+
+In essence, they enable the creation of associations between Menu and Ingredient through 
+the MenuIngredient table, using the menu_id and ingredient_id foreign keys to keep track 
+of these associations.
+

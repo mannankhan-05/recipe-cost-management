@@ -20,3 +20,12 @@ app.use(router);
 app.listen(PORT, (): void => {
   logger.info(`Server is running on port ${PORT}`);
 });
+
+// Sync database (be careful with force: true, it will drop and recreate tables)
+// db.sync({ force: false })
+//   .then(() => {
+//     logger.info("Database synced");
+//   })
+//   .catch((err) => {
+//     logger.error("Error syncing database", err);
+//   });
