@@ -6,7 +6,7 @@ import {
   getMenuItemById,
   updateMenuItemById,
 } from "../controllers/menu";
-// import { getAllMenusWithIngredients } from "../controllers/menu_ingredient";
+import { getAllMenusWithIngredients } from "../controllers/menu_ingredient";
 
 const router = express.Router();
 
@@ -22,6 +22,6 @@ router.post("/addMenuItem", addMenuItem);
 
 router.put("/updateMenuItem/:id", updateMenuItemById);
 
-// router.get("/getMenuIngredients", getAllMenusWithIngredients);
+router.get("/getMenuIngredients", getAllMenusWithIngredients);
 
 export default router;
