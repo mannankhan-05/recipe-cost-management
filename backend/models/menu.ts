@@ -1,5 +1,5 @@
-import db from "../config/database";
 import Sequelize from "sequelize";
+import db from "../config/database";
 
 const menu = db.define(
   "menu",

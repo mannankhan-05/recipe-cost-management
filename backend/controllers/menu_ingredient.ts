@@ -26,6 +26,7 @@ export const getAllMenusWithIngredients = (req: Request, res: Response) => {
       res.status(200).json(menus);
     })
     .catch((err) => {
-      res.status(500).json({ error: err });
+      console.error("Error fetching menus with ingredients:", err);
+      res.status(500).json({ error: err.message }); // Send detailed error message
     });
 };
