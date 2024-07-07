@@ -11,6 +11,10 @@ db.authenticate()
   .then(() => logger.info("Connected to database(postgresql)"))
   .catch(() => logger.error("Error connecting to database(postgresql)"));
 
+db.sync({ force: true })
+  .then(() => logger.info("Database synced"))
+  .catch(() => logger.error("Error syncing database"));
+
 // middleware to parse JSON bodies
 app.use(express.json());
 

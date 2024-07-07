@@ -9,16 +9,16 @@ export const getAllMenusWithIngredients = (req: Request, res: Response) => {
     .findAll({
       include: [
         {
-          model: ingredient,
-          through: {
-            attributes: ["quantity"],
-          },
+          model: menu,
+          // through: {
+          //   attributes: ["quantity"],
+          // },
         },
         {
-          model: menu,
-          through: {
-            attributes: ["quantity"],
-          },
+          model: ingredient,
+          // through: {
+          //   attributes: ["quantity"],
+          // },
         },
       ],
     })

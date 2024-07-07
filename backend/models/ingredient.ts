@@ -4,6 +4,11 @@ import db from "../config/database";
 const ingredient = db.define(
   "ingredient",
   {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     name: {
       type: Sequelize.STRING,
     },
