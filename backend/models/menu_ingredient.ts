@@ -31,13 +31,13 @@ const menu_ingredient = db.define(
 );
 
 // explained below both the lines in menu_ingredients_doc.txt file
-menu.belongsToMany(ingredient, {
-  through: menu_ingredient,
-  foreignKey: "menu_id",
-});
-ingredient.belongsToMany(menu, {
-  through: menu_ingredient,
-  foreignKey: "ingredient_id",
-});
+// menu.belongsToMany(ingredient, {
+// through: menu_ingredient,
+// foreignKey: "menu_id",
+// });
+// ingredient.belongsToMany(menu, {
+// through: menu_ingredient,
+// foreignKey: "ingredient_id",
+// });
 
 export default menu_ingredient;
