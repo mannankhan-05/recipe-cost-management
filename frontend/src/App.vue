@@ -1,21 +1,28 @@
 <template>
   <v-app>
+    <menuBar />
     <v-main>
-      <router-view/>
+      <v-slide-x-transition mode="out-in">
+        <router-view />
+      </v-slide-x-transition>
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
+import menuBar from "./components/menuBar.vue";
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
+  components: {
+    menuBar,
+  },
 
-  data () {
+  data() {
     return {
       //
-    }
+    };
   },
-})
+});
 </script>
