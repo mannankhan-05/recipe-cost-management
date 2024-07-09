@@ -33,8 +33,6 @@ export default defineComponent({});
 .chips-center {
   width: 100%;
   display: flex;
-  flex-wrap: wrap; /* Allow chips to wrap to the next line on smaller screens */
-
   justify-content: center;
   align-items: center;
   border-bottom: 2px solid black;
