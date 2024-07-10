@@ -6,9 +6,9 @@ import menu from "../models/menu";
 export const getAllMenuItems = (req: Request, res: Response) => {
   menu
     .findAll()
-    .then(() => {
+    .then((menuItems) => {
       logger.info("Fetched all the items in the menu.");
-      res.sendStatus(200);
+      res.json(menuItems);
     })
     .catch(() => {
       logger.error("Error fetching all the items in the menu!!.");
