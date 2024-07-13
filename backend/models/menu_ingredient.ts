@@ -1,48 +1,27 @@
-import db from "../config/database";
-import menu from "./menu";
-import ingredient from "./ingredient";
-import Sequelize from "sequelize";
+import { DataTypes, Model } from "sequelize";
+import sequelize from "../config/database"; // Assuming you have a database connection setup
+import Menu from "./menu";
+import Ingredient from "./ingredient";
 
-const menu_ingredient = db.define(
-  "menu_ingredient",
+class MenuIngredient extends Model {}
+MenuIngredient.init(
   {
     id: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    menu_id: {
-      type: Sequelize.INTEGER,
-      references: {
-        model: menu,
-        key: "id",
-      },
-    },
-    ingredient_id: {
-      type: Sequelize.INTEGER,
-      references: {
-        model: ingredient,
-        key: "id",
-      },
-    },
-    quantity: {
-      type: Sequelize.INTEGER,
-    },
+    menu_id: DataTypes.INTEGER,
+    ingredient_id: DataTypes.INTEGER,
+    quantity: DataTypes.INTEGER,
   },
   {
-    tableName: "menu_ingredient",
-    timestamps: true,
+    sequelize,
+    modelName: "menu_ingredient",
   }
 );
 
-// explained below both the lines in menu_ingredients_doc.txt file
-menu.belongsToMany(ingredient, {
-  through: menu_ingredient,
-  foreignKey: "menu_id",
-});
-ingredient.belongsToMany(menu, {
-  through: menu_ingredient,
-  foreignKey: "ingredient_id",
-});
+MenuIngredient.belongsTo(Menu, { foreignKey: "menu_id" });
+MenuIngredient.belongsTo(Ingredient, { foreignKey: "ingredient_id" });
 
-export default menu_ingredient;
+export default MenuIngredient;

@@ -1,28 +1,22 @@
-import Sequelize from "sequelize";
-import db from "../config/database";
+import { DataTypes, Model } from "sequelize";
+import sequelize from "../config/database"; // Assuming you have a database connection setup
 
-const ingredient = db.define(
-  "ingredient",
+class Ingredient extends Model {}
+Ingredient.init(
   {
     id: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
-      type: Sequelize.STRING,
-    },
-    price: {
-      type: Sequelize.FLOAT,
-    },
-    type: {
-      type: Sequelize.STRING,
-    },
+    name: DataTypes.STRING,
+    price: DataTypes.FLOAT,
+    type: DataTypes.STRING,
   },
   {
-    tableName: "ingredient",
-    timestamps: true,
+    sequelize,
+    modelName: "ingredient",
   }
 );
 
-export default ingredient;
+export default Ingredient;

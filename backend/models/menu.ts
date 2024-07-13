@@ -1,31 +1,23 @@
-import Sequelize from "sequelize";
-import db from "../config/database";
+import { DataTypes, Model } from "sequelize";
+import sequelize from "../config/database"; // Assuming you have a database connection setup
 
-const menu = db.define(
-  "menu",
+class Menu extends Model {}
+Menu.init(
   {
     id: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
-      type: Sequelize.STRING,
-    },
-    price: {
-      type: Sequelize.FLOAT,
-    },
-    photo: {
-      type: Sequelize.STRING,
-    },
-    recipe: {
-      type: Sequelize.STRING,
-    },
+    name: DataTypes.STRING,
+    price: DataTypes.FLOAT,
+    photo: DataTypes.STRING,
+    recipe: DataTypes.STRING,
   },
   {
-    tableName: "menu",
-    timestamps: true,
+    sequelize,
+    modelName: "menu",
   }
 );
 
-export default menu;
+export default Menu;

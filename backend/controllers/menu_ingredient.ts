@@ -7,20 +7,7 @@ import menu_ingredient from "../models/menu_ingredient";
 export const getAllMenusWithIngredients = (req: Request, res: Response) => {
   menu_ingredient
     .findAll({
-      include: [
-        {
-          model: menu,
-          // through: {
-          //   attributes: ["quantity"],
-          // },
-        },
-        {
-          model: ingredient,
-          // through: {
-          //   attributes: ["quantity"],
-          // },
-        },
-      ],
+      include: [menu, ingredient],
     })
     .then((menus) => {
       res.status(200).json(menus);
