@@ -8,8 +8,14 @@ import axios from "axios";
 
 export default defineComponent({
   async mounted() {
-    let response = await axios.get("http://localhost:5000/menuItems");
-    console.log(response.data);
+    await axios
+      .get("http://localhost:5000/menuItems")
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 });
 </script>
