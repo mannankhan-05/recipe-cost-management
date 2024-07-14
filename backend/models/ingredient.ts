@@ -1,7 +1,10 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../config/database"; // Assuming you have a database connection setup
+import sequelize from "../config/database";
 
+// This declares a new class Ingredient which extends Model from Sequelize. By extending Model, Ingredient inherits Sequelize's built-in methods for interacting with the database.
 class Ingredient extends Model {}
+
+// initializing the Ingredient model and defining its attributes
 Ingredient.init(
   {
     id: {
