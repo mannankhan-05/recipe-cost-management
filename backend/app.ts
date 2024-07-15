@@ -2,6 +2,7 @@ import express from "express";
 import logger from "./logger";
 import db from "./config/database";
 import router from "./routes/routes";
+import cors from "cors";
 const app = express();
 
 const PORT: number = 5000;
@@ -17,6 +18,8 @@ db.sync()
 
 // middleware to parse JSON bodies
 app.use(express.json());
+
+app.use(cors());
 
 // to use router in the application
 app.use(router);
