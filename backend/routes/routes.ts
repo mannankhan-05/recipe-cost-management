@@ -8,7 +8,8 @@ import {
 } from "../controllers/menu";
 import {
   getAllMenusWithIngredients,
-  // addMenuWithIngredients,
+  addMenuWithIngredients,
+  getSingleMenuWithIngredients,
 } from "../controllers/menu_ingredient";
 
 const router = express.Router();
@@ -27,6 +28,8 @@ router.put("/updateMenuItem/:id", updateMenuItemById);
 
 router.get("/getMenuIngredients", getAllMenusWithIngredients);
 
-// router.post("/addMenuIngredient", addMenuWithIngredients);
+router.get("/getMenuIngredient/:id", getSingleMenuWithIngredients);
+
+router.post("/addMenuIngredient", addMenuWithIngredients);
 
 export default router;

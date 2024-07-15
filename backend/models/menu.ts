@@ -16,6 +16,14 @@ Menu.init(
     price: DataTypes.FLOAT,
     photo: DataTypes.STRING,
     recipe: DataTypes.STRING,
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
   },
   {
     sequelize,
