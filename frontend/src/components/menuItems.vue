@@ -17,9 +17,9 @@
           <v-card-text>{{ menuItem.recipe }}</v-card-text>
           <v-spacer></v-spacer>
           <v-card-actions>
-            <div>${{ menuItem.price }}</div>
+            <div class="price">${{ menuItem.price }}</div>
             <v-spacer></v-spacer>
-            <v-btn variant="outlined">Show Full</v-btn>
+            <v-btn class="showFullButton" variant="outlined">Show Full</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -55,4 +55,18 @@ export default defineComponent({
 });
 </script>
 
-<style></style>
+<style>
+.showFullButton {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+}
+
+.price {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+</style>

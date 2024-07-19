@@ -1,5 +1,5 @@
 <template>
-  <div>add menu item</div>
+  <v-container class="pa-3"> add menuItem </v-container>
 </template>
 
 <script>

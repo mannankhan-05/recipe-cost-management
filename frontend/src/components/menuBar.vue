@@ -5,20 +5,22 @@
         <v-row wrap>
           <v-col cols="12" xs="8" sm="12" md="12" lg="12">
             <router-link :to="{ name: 'menuItems' }">
-              <v-chip label class="mr-2" variant="outlined"> MenuItems </v-chip>
+              <v-chip label class="mr-2 bg-teal-darken-3" variant="outlined">
+                MenuItems
+              </v-chip>
             </router-link>
             <router-link :to="{ name: 'ingredients' }">
-              <v-chip label class="mr-2" variant="outlined">
+              <v-chip label class="mr-2 bg-teal-darken-3" variant="outlined">
                 Ingredients
               </v-chip>
             </router-link>
             <router-link :to="{ name: 'addMenuItem' }">
-              <v-chip label class="mr-2" variant="outlined">
+              <v-chip label class="mr-2 bg-teal-darken-3" variant="outlined">
                 AddMenuItem
               </v-chip>
             </router-link>
             <router-link :to="{ name: 'addIngredient' }">
-              <v-chip label class="mr-2" variant="outlined">
+              <v-chip label class="mr-2 bg-teal-darken-3" variant="outlined">
                 AddIngredient
               </v-chip>
             </router-link>
