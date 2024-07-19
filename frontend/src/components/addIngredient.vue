@@ -17,30 +17,49 @@
             clearable
             label="Name"
             variant="outlined"
+            type="text"
+            v-model="name"
           ></v-text-field>
           <v-text-field
             clearable
             label="Price"
             variant="outlined"
+            type="number"
+            v-model="price"
           ></v-text-field>
           <v-select
-            :items="['Inventory', 'Intermediate']"
+            :items="['inventory', 'intermediate']"
             clearable
             label="Type"
             variant="outlined"
+            v-model="type"
           ></v-select>
+          <v-btn
+            size="small"
+            elevation="4"
+            class="buttonText pt-3 pb-3 pl-6 pr-6"
+            :disabled="!name || !price || !type"
+            @click="addIngredient()"
+          >
+            <v-icon class="mr-3">mdi-plus-circle</v-icon>
+            <span>Add Ingredient</span>
+          </v-btn>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
+import axios from "axios";
 export default {
   data: () => ({
     elevations: [0],
     variants: ["outlined"],
     xs: false,
+    name: "",
+    price: null,
+    type: "",
   }),
   methods: {
     checkWidth() {
@@ -49,6 +68,16 @@ export default {
       } else {
         this.xs = false;
       }
+    },
+    async addIngredient() {
+      await axios.post("http://localhost:5000/addIngredient", {
+        name: this.name,
+        price: this.price,
+        type: this.type,
+      });
+      this.name = "";
+      this.price = null;
+      this.type = "";
     },
   },
   mounted() {
@@ -65,5 +94,13 @@ export default {
 .form {
   width: 100%;
   height: 100%;
+}
+
+.buttonText {
+  margin-top: 20px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
