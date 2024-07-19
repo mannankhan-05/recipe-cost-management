@@ -12,7 +12,7 @@
         lg="3"
         class="d-flex justify-center"
       >
-        <v-card class="mt-5" variant="tonal" width="350" height="400">
+        <v-card class="mt-5" variant="tonal" width="350" height="380">
           <v-card-title>{{ menuItem.name }}</v-card-title>
           <v-card-text>{{ menuItem.recipe }}</v-card-text>
           <v-spacer></v-spacer>
