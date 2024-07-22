@@ -27,6 +27,15 @@
             type="number"
             v-model="price"
           ></v-text-field>
+          <v-file-input
+            clearable
+            variant="outlined"
+            label="Picture"
+            method="POST"
+            enctype="multipart/form-data"
+            name="ingredientImage"
+            v-model="image"
+          ></v-file-input>
           <v-select
             :items="['inventory', 'intermediate']"
             clearable
@@ -52,14 +61,16 @@
 
 <script lang="ts">
 import axios from "axios";
-export default {
+import { defineComponent } from "vue";
+export default defineComponent({
   data: () => ({
     elevations: [0],
     variants: ["outlined"],
     xs: false,
     name: "",
-    price: null,
+    price: null as null | number,
     type: "",
+    image: "",
   }),
   methods: {
     checkWidth() {
@@ -74,16 +85,18 @@ export default {
         name: this.name,
         price: this.price,
         type: this.type,
+        picture: this.image,
       });
       this.name = "";
       this.price = null;
       this.type = "";
+      this.image = "";
     },
   },
   mounted() {
     this.checkWidth();
   },
-};
+});
 </script>
 
 <style>

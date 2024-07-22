@@ -15,6 +15,7 @@ Ingredient.init(
     name: DataTypes.STRING,
     price: DataTypes.FLOAT,
     type: DataTypes.STRING,
+    picture: DataTypes.STRING,
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
