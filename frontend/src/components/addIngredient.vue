@@ -29,13 +29,18 @@
           ></v-text-field>
           <v-file-input
             clearable
-            variant="outlined"
-            label="Picture"
-            method="POST"
-            enctype="multipart/form-data"
             name="ingredientImage"
+            label="Picture"
             v-model="image"
-          ></v-file-input>
+            @change="handleFileChange($event)"
+          >
+            <template v-slot:selection="{ text }">
+              <v-avatar v-if="imageUrl" size="30" class="mr-3 rounded">
+                <img :src="imageUrl" alt="Selected Image" />
+              </v-avatar>
+              {{ text }}
+            </template>
+          </v-file-input>
           <v-select
             :items="['inventory', 'intermediate']"
             clearable
@@ -71,6 +76,7 @@ export default defineComponent({
     price: null as null | number,
     type: "",
     image: "",
+    imageUrl: "",
   }),
   methods: {
     checkWidth() {
@@ -81,16 +87,31 @@ export default defineComponent({
       }
     },
     async addIngredient() {
-      await axios.post("http://localhost:5000/addIngredient", {
-        name: this.name,
-        price: this.price,
-        type: this.type,
-        picture: this.image,
+      const formData = new FormData();
+      formData.append("name", this.name);
+      formData.append("price", this.price != null ? this.price.toString() : "");
+      formData.append("type", this.type);
+      formData.append("ingredientImage", this.image);
+
+      await axios.post("http://localhost:5000/addIngredient", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
+
       this.name = "";
       this.price = null;
       this.type = "";
       this.image = "";
+      this.imageUrl = "";
+    },
+    handleFileChange(event: any) {
+      const file = event.target.files[0];
+      if (file && file instanceof File) {
+        this.imageUrl = URL.createObjectURL(file);
+      } else {
+        this.imageUrl = "";
+      }
     },
   },
   mounted() {

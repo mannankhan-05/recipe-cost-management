@@ -13,6 +13,7 @@
         class="d-flex justify-center"
       >
         <v-sheet :elevation="7" :height="200" :width="250" border class="pa-2">
+          <img :src="ingredient.picture" class="image" />
           {{ ingredient.name }}
           {{ ingredient.price }}
           {{ ingredient.type }}
@@ -39,4 +40,11 @@ export default defineComponent({
 });
 </script>
 
-<style></style>
+<style>
+.image {
+  height: 50%;
+  width: 100%;
+  border-radius: 5px;
+  margin-left: 0px;
+}
+</style>

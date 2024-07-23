@@ -1,15 +1,17 @@
 import { Request, Response } from "express";
 import ingredient from "../models/ingredient";
 import logger from "../logger";
+import fs from "fs";
+import path from "path";
 import multer from "multer";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    return cb(null, "/ingredietImages");
+    cb(null, "ingredientImages/");
   },
 
   filename: function (req, file, cb) {
-    return cb(null, `${Date.now()}-${file.originalname}`);
+    cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 
@@ -19,9 +21,17 @@ const upload = multer({ storage: storage });
 export const getAllIngredients = (req: Request, res: Response) => {
   ingredient
     .findAll()
-    .then((ingredients) => {
+    .then((ingred) => {
       logger.info("Fetched all the ingredients.");
-      res.json(ingredients);
+
+      const result = ingred.map((ing: any) => {
+        if (ing.picture) {
+          ing.picture = `http://localhost:5000/ingredientImages/${ing.picture}`;
+        }
+        return ing;
+      });
+
+      res.json(result);
     })
     .catch(() => {
       logger.error("Error fetching ingredients!..");
@@ -33,10 +43,11 @@ export const getAllIngredients = (req: Request, res: Response) => {
 export const addIngredient = (req: Request, res: Response) => {
   upload.single("ingredientImage")(req, res, (err) => {
     if (err) {
-      res.sendStatus(500);
+      logger.error("Error uploading image");
+      // res.sendStatus(500);
     }
     const { name, price, type } = req.body;
-    const picture = req.file ? File : null;
+    const picture = req.file ? req.file.filename : null;
 
     if (!name || !price || !type) {
       logger.info("Make sure to add all the fields!!.");
@@ -52,6 +63,7 @@ export const addIngredient = (req: Request, res: Response) => {
       })
       .then(() => {
         logger.info("Added a ingredient in the ingredient table");
+        console.log(picture);
         res.sendStatus(200);
       })
       .catch(() => {
