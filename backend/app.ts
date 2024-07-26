@@ -16,6 +16,9 @@ db.sync()
   .then(() => logger.info("Database synced"))
   .catch(() => logger.error("Error syncing database"));
 
+// to serve static files from the ingredientImages folder
+app.use("/ingredientImages", express.static("ingredientImages"));
+
 // middleware to parse JSON bodies
 app.use(express.json());
 

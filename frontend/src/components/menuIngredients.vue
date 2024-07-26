@@ -14,9 +14,18 @@
       >
         <v-sheet :elevation="7" :height="200" :width="250" border class="pa-2">
           <img :src="ingredient.picture" class="image" />
-          {{ ingredient.name }}
-          {{ ingredient.price }}
-          {{ ingredient.type }}
+          <h3>{{ ingredient.name }}</h3>
+          <div class="divider">
+            <v-divider
+              :thickness="2"
+              class="border-opacity-25"
+              color="info"
+            ></v-divider>
+          </div>
+          <div class="d-flex align-center">
+            <h3 class="mb-0 mr-auto">{{ ingredient.price }}$</h3>
+            <p class="mb-0 justify-end">{{ ingredient.type }}</p>
+          </div>
         </v-sheet>
       </v-col>
     </v-row>
@@ -44,7 +53,12 @@ export default defineComponent({
 .image {
   height: 50%;
   width: 100%;
-  border-radius: 5px;
+  border-radius: 3px;
   margin-left: 0px;
+}
+
+.divider {
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 </style>
