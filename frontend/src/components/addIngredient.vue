@@ -55,8 +55,11 @@
             :disabled="!name || !price || !type"
             @click="addIngredient()"
           >
-            <v-icon class="mr-3">mdi-plus-circle</v-icon>
-            <span>Add Ingredient</span>
+            <div v-if="!buttonLoader">
+              <v-icon class="mr-3">mdi-plus-circle</v-icon>
+              <span>Add Ingredient</span>
+            </div>
+            <v-progress-circular v-else indeterminate></v-progress-circular>
           </v-btn>
         </v-card>
       </v-col>
@@ -77,6 +80,7 @@ export default defineComponent({
     type: "",
     image: "",
     imageUrl: "",
+    buttonLoader: false as boolean,
   }),
   methods: {
     checkWidth() {
@@ -87,6 +91,7 @@ export default defineComponent({
       }
     },
     async addIngredient() {
+      this.buttonLoader = true;
       const formData = new FormData();
       formData.append("name", this.name);
       formData.append("price", this.price != null ? this.price.toString() : "");
@@ -98,7 +103,7 @@ export default defineComponent({
           "Content-Type": "multipart/form-data",
         },
       });
-
+      this.buttonLoader = false;
       this.name = "";
       this.price = null;
       this.type = "";

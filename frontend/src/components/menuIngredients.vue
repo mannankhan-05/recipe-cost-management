@@ -12,7 +12,13 @@
         lg="3"
         class="d-flex justify-center"
       >
-        <v-sheet :elevation="7" :height="200" :width="250" border class="pa-2">
+        <v-sheet
+          :elevation="7"
+          :height="200"
+          :width="250"
+          border
+          class="pa-2 rounded-lg"
+        >
           <img :src="ingredient.picture" class="image" />
           <h3>{{ ingredient.name }}</h3>
           <div class="divider">
