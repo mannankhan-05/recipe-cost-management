@@ -51,6 +51,7 @@
           <v-btn
             size="small"
             elevation="4"
+            variant="outlined"
             class="buttonText pt-3 pb-3 pl-6 pr-6"
             :disabled="!name || !price || !type"
             @click="addIngredient()"
