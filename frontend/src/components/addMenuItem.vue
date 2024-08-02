@@ -25,10 +25,20 @@
             type="number"
           ></v-text-field>
           <v-file-input
+            name="menuImage"
             variant="outlined"
             clearable
             label="Picture"
-          ></v-file-input>
+            v-model="picture"
+            @change="handleFileChange($event)"
+          >
+            <template v-slot:selection="{ text }">
+              <v-avatar v-if="imageUrl" size="30" class="mr-3 rounded">
+                <img :src="imageUrl" alt="Selected Image" />
+              </v-avatar>
+              {{ text }}
+            </template>
+          </v-file-input>
           <v-textarea variant="outlined" label="Recipe" clearable></v-textarea>
           <div class="divider">
             <v-divider
@@ -51,7 +61,7 @@
             variant="outlined"
           ></v-select>
 
-          <v-btn variant="outlined">
+          <v-btn variant="outlined" @click="addMenuItem">
             <v-icon class="mr-3">mdi-plus-circle</v-icon>
             <span>Add MenuItem</span></v-btn
           >
@@ -71,6 +81,11 @@ export default defineComponent({
       xs: false as boolean,
       // array of tuples with ingredient name and price
       ingredientNames: [] as [string, number][],
+      name: "" as string,
+      price: 0 as number,
+      picture: "" as string,
+      recipe: "" as string,
+      imageUrl: "" as string,
     };
   },
   mounted() {
@@ -91,6 +106,27 @@ export default defineComponent({
         this.ingredientNames.push([ingredient.name, ingredient.price]);
       });
       console.log(this.ingredientNames);
+    },
+    async addMenuItem() {
+      const formData = new FormData();
+      formData.append("name", this.name);
+      formData.append("price", this.price != null ? this.price.toString() : "");
+      formData.append("menuImage", this.picture);
+      formData.append("recipe", this.recipe);
+
+      await axios.post("http://localhost:5000/addMenuItem", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    },
+    handleFileChange(event: any) {
+      const file = event.target.files[0];
+      if (file && file instanceof File) {
+        this.imageUrl = URL.createObjectURL(file);
+      } else {
+        this.imageUrl = "";
+      }
     },
   },
 });

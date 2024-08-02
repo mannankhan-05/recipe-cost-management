@@ -43,7 +43,7 @@ export const getAllIngredients = (req: Request, res: Response) => {
 export const addIngredient = (req: Request, res: Response) => {
   upload.single("ingredientImage")(req, res, (err) => {
     if (err) {
-      logger.error("Error uploading image");
+      logger.error("Error uploading ingredientImage");
       // res.sendStatus(500);
     }
     const { name, price, type } = req.body;
