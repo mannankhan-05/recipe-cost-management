@@ -17,12 +17,14 @@
             label="Name"
             variant="outlined"
             type="text"
+            v-model="name"
           ></v-text-field>
           <v-text-field
             clearable
             label="Price"
             variant="outlined"
             type="number"
+            v-model="price"
           ></v-text-field>
           <v-file-input
             name="menuImage"
@@ -39,7 +41,12 @@
               {{ text }}
             </template>
           </v-file-input>
-          <v-textarea variant="outlined" label="Recipe" clearable></v-textarea>
+          <v-textarea
+            variant="outlined"
+            label="Recipe"
+            clearable
+            v-model="recipe"
+          ></v-textarea>
           <div class="divider">
             <v-divider
               :thickness="6"
@@ -119,6 +126,11 @@ export default defineComponent({
           "Content-Type": "multipart/form-data",
         },
       });
+
+      this.name = "";
+      this.price = 0;
+      this.picture = "";
+      this.recipe = "";
     },
     handleFileChange(event: any) {
       const file = event.target.files[0];

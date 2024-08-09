@@ -18,8 +18,17 @@
           width="350"
           height="380"
         >
+          <img :src="menuItem.photo" class="menuItemImage" />
           <v-card-title>{{ menuItem.name }}</v-card-title>
-          <v-card-text>{{ menuItem.recipe }}</v-card-text>
+          <v-card-text>{{ recipeElipses(menuItem.recipe, 50) }}</v-card-text>
+          <div class="divider">
+            <v-divider
+              :thickness="2"
+              class="border-opacity-25"
+              color="info"
+            ></v-divider>
+          </div>
+
           <v-spacer></v-spacer>
           <v-card-actions>
             <div class="price">${{ menuItem.price }}</div>
@@ -32,7 +41,7 @@
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
 import axios from "axios";
 
@@ -56,6 +65,12 @@ export default defineComponent({
         this.xs = false;
       }
     },
+    recipeElipses(recipe: string, length: number): string {
+      if (recipe.length > length) {
+        return recipe.substring(0, length) + "...";
+      }
+      return recipe;
+    },
   },
 });
 </script>
@@ -73,5 +88,16 @@ export default defineComponent({
   left: 8px;
   font-size: 1.2rem;
   font-weight: bold;
+}
+
+.menuItemImage {
+  width: 100%;
+  height: 50%;
+  object-fit: cover;
+}
+
+.divider {
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 </style>

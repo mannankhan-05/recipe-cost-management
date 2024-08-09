@@ -19,6 +19,8 @@ db.sync()
 // to serve static files from the ingredientImages folder
 app.use("/ingredientImages", express.static("ingredientImages"));
 
+app.use("/menuImages", express.static("menuImages"));
+
 // middleware to parse JSON bodies
 app.use(express.json());
 

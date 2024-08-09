@@ -21,7 +21,13 @@ export const getAllMenuItems = (req: Request, res: Response) => {
     .findAll()
     .then((menuItems) => {
       logger.info("Fetched all the items in the menu.");
-      res.json(menuItems);
+      const result = menuItems.map((item: any) => {
+        if (item.photo) {
+          item.photo = `http://localhost:5000/menuImages/${item.photo}`;
+        }
+        return item;
+      });
+      res.json(result);
     })
     .catch(() => {
       logger.error("Error fetching all the items in the menu!!.");
