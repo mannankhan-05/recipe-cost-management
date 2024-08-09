@@ -66,6 +66,7 @@
             :items="ingredientNames"
             multiple
             variant="outlined"
+            v-model="selectedIngredients"
           ></v-select>
 
           <v-btn variant="outlined" @click="addMenuItem">
@@ -87,12 +88,13 @@ export default defineComponent({
     return {
       xs: false as boolean,
       // array of tuples with ingredient name and price
-      ingredientNames: [] as [string, number][],
+      ingredientNames: [] as [number, string][],
       name: "" as string,
       price: 0 as number,
       picture: "" as string,
       recipe: "" as string,
       imageUrl: "" as string,
+      selectedIngredients: [] as number[],
     };
   },
   mounted() {
@@ -109,10 +111,9 @@ export default defineComponent({
     },
     async getIngredients() {
       let response = await axios.get("http://localhost:5000/ingredients");
-      response.data.forEach((ingredient: { name: string; price: number }) => {
-        this.ingredientNames.push([ingredient.name, ingredient.price]);
+      response.data.forEach((ingredient: { id: number; name: string }) => {
+        this.ingredientNames.push([ingredient.id, ingredient.name]);
       });
-      console.log(this.ingredientNames);
     },
     async addMenuItem() {
       const formData = new FormData();
@@ -121,11 +122,22 @@ export default defineComponent({
       formData.append("menuImage", this.picture);
       formData.append("recipe", this.recipe);
 
-      await axios.post("http://localhost:5000/addMenuItem", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      let result = await axios.post(
+        "http://localhost:5000/addMenuItem",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      // id of the added menuItem
+      const id = result.data.id;
+      console.log(id);
+
+      // selected ingredients
+      console.log(this.selectedIngredients);
 
       this.name = "";
       this.price = 0;

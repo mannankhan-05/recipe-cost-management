@@ -77,9 +77,9 @@ export const addMenuItem = (req: Request, res: Response) => {
         photo: photo,
         recipe: recipe,
       })
-      .then(() => {
+      .then((result) => {
         logger.info("Added the menuItem in the menu table");
-        res.sendStatus(200);
+        res.json(result);
       })
       .catch(() => {
         logger.error("Error when adding the menuItem");
