@@ -63,16 +63,29 @@
             clearable
             chips
             label="Select"
-            :items="ingredientNames"
+            :items="ingredientItems"
             multiple
             variant="outlined"
             v-model="selectedIngredients"
           ></v-select>
 
-          <v-btn variant="outlined" @click="addMenuItem">
-            <v-icon class="mr-3">mdi-plus-circle</v-icon>
-            <span>Add MenuItem</span></v-btn
+          <v-btn
+            variant="outlined"
+            @click="addMenuItem"
+            :disabled="
+              !name ||
+              !price ||
+              !picture ||
+              !recipe ||
+              selectedIngredients.length === 0
+            "
           >
+            <div v-if="!buttonLoader">
+              <v-icon class="mr-3">mdi-plus-circle</v-icon>
+              <span>Add MenuItem</span>
+            </div>
+            <v-progress-circular v-else indeterminate></v-progress-circular>
+          </v-btn>
         </v-card>
       </v-col>
     </v-row>
@@ -95,11 +108,19 @@ export default defineComponent({
       recipe: "" as string,
       imageUrl: "" as string,
       selectedIngredients: [] as number[],
+      buttonLoader: false as boolean,
     };
   },
   mounted() {
     this.checkWidth();
     this.getIngredients();
+  },
+  computed: {
+    // To extract only ingredientNames from ingredientNames array
+    ingredientItems(): string[] {
+      // The function ([_, name]) => name returns only the name part of each tuple.
+      return this.ingredientNames.map(([_, name]) => name);
+    },
   },
   methods: {
     checkWidth() {
@@ -116,6 +137,7 @@ export default defineComponent({
       });
     },
     async addMenuItem() {
+      this.buttonLoader = true;
       const formData = new FormData();
       formData.append("name", this.name);
       formData.append("price", this.price != null ? this.price.toString() : "");
@@ -136,6 +158,11 @@ export default defineComponent({
       const id = result.data.id;
       console.log(id);
 
+      await axios.post("http://localhost:5000/addMenuIngredient", {
+        menuId: id,
+        ingredientId: this.selectedIngredients.map((id) => id),
+      });
+
       // selected ingredients
       console.log(this.selectedIngredients);
 
@@ -143,6 +170,9 @@ export default defineComponent({
       this.price = 0;
       this.picture = "";
       this.recipe = "";
+      this.imageUrl = "";
+      this.selectedIngredients = [];
+      this.buttonLoader = false;
     },
     handleFileChange(event: any) {
       const file = event.target.files[0];

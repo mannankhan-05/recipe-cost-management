@@ -104,12 +104,12 @@ export default defineComponent({
           "Content-Type": "multipart/form-data",
         },
       });
-      this.buttonLoader = false;
       this.name = "";
       this.price = null;
       this.type = "";
       this.image = "";
       this.imageUrl = "";
+      this.buttonLoader = false;
     },
     handleFileChange(event: any) {
       const file = event.target.files[0];
