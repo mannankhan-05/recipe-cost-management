@@ -4,7 +4,7 @@
       <v-col cols="12">
         <v-card
           max-width="800"
-          varian="outlined"
+          variant="outlined"
           elevation="0"
           class="mx-auto form pa-10 border-md scrollable-card"
         >
@@ -158,13 +158,12 @@ export default defineComponent({
       const id = result.data.id;
       console.log(id);
 
-      await axios.post("http://localhost:5000/addMenuIngredient", {
-        menuId: id,
-        ingredientId: this.selectedIngredients.map((id) => id),
-      });
+      // await axios.post("http://localhost:5000/addMenuIngredient", {
+      //   menuId: id,
+      //   ingredientId: this.selectedIngredients.map((id) => id),
+      // });
 
-      // selected ingredients
-      console.log(this.selectedIngredients);
+      console.log(this.selectedIngredients.map((id) => id));
 
       this.name = "";
       this.price = 0;
