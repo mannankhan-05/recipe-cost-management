@@ -72,3 +72,27 @@ export const addIngredient = (req: Request, res: Response) => {
       });
   });
 };
+
+// to get the id of the ingredient from the ingredient selected in the frontend
+export const getIngredientId = (req: Request, res: Response) => {
+  const { name } = req.query;
+
+  ingredient
+    .findOne({
+      where: {
+        name: name,
+      },
+    })
+    .then((result) => {
+      logger.info(
+        `Fetched the id of the ingredient where ingredient name is ${name}`
+      );
+      res.json(result);
+    })
+    .catch(() => {
+      logger.error(
+        `Error fetching the id of the ingredient where ingredient name is ${name}`
+      );
+      res.sendStatus(500);
+    });
+};

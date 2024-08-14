@@ -1,5 +1,9 @@
 import express from "express";
-import { getAllIngredients, addIngredient } from "../controllers/ingredient";
+import {
+  getAllIngredients,
+  addIngredient,
+  getIngredientId,
+} from "../controllers/ingredient";
 import {
   getAllMenuItems,
   addMenuItem,
@@ -17,6 +21,8 @@ const router = express.Router();
 router.get("/ingredients", getAllIngredients);
 
 router.post("/addIngredient", addIngredient);
+
+router.get("/getIngredientId", getIngredientId);
 
 router.get("/menuItems", getAllMenuItems);
 

@@ -153,17 +153,24 @@ export default defineComponent({
           },
         }
       );
-
       // id of the added menuItem
       const id = result.data.id;
-      console.log(id);
 
-      // await axios.post("http://localhost:5000/addMenuIngredient", {
-      //   menuId: id,
-      //   ingredientId: this.selectedIngredients.map((id) => id),
-      // });
+      for (let i = 0; i < this.selectedIngredients.length; i++) {
+        // get the id's of the selected ingredients
+        let res = await axios.get("http://localhost:5000/getIngredientId", {
+          params: {
+            name: this.selectedIngredients[i],
+          },
+        });
+        const ingredientId = res.data.id;
 
-      console.log(this.selectedIngredients.map((id) => id));
+        // add the selected ingredients id's to the respective menuItem id
+        await axios.post("http://localhost:5000/addMenuIngredient", {
+          menuId: id,
+          ingredientId: ingredientId,
+        });
+      }
 
       this.name = "";
       this.price = 0;

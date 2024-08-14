@@ -3,6 +3,7 @@ import menuItems from "../components/menuItems.vue";
 import ingredients from "../components/menuIngredients.vue";
 import addMenuItem from "../components/addMenuItem.vue";
 import addIngredient from "../components/addIngredient.vue";
+import singleMenuItem from "../components/singleMenuItem.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -24,6 +25,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/addIngredient",
     name: "addIngredient",
     component: addIngredient,
+  },
+  {
+    path: "/menuItem/:id",
+    name: "singleMenuItem",
+    component: singleMenuItem,
   },
 ];
 

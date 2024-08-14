@@ -33,7 +33,12 @@
           <v-card-actions>
             <div class="price">${{ menuItem.price }}</div>
             <v-spacer></v-spacer>
-            <v-btn class="showFullButton" variant="outlined">Show Full</v-btn>
+            <v-btn
+              class="showFullButton"
+              variant="outlined"
+              @click="showFullMenuItem(menuItem.id)"
+              >Show Full</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-col>
@@ -70,6 +75,9 @@ export default defineComponent({
         return recipe.substring(0, length) + "...";
       }
       return recipe;
+    },
+    showFullMenuItem(id: number) {
+      this.$router.push({ name: "singleMenuItem", params: { id: id } });
     },
   },
 });
