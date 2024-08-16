@@ -41,12 +41,13 @@ export const getMenuItemById = (req: Request, res: Response) => {
 
   menu
     .findByPk(id)
-    .then((menuItem) => {
+    .then((menuItem: any) => {
       logger.info(`Fetched the menuItem where id of item is ${id}`);
-      res.json(menuItem);
-
-      if (!menuItem) {
-        logger.info("We are unable to find the ID you provided!!.");
+      if (menuItem) {
+        if (menuItem.photo) {
+          menuItem.photo = `http://localhost:5000/menuImages/${menuItem.photo}`;
+        }
+        res.json(menuItem);
       }
     })
     .catch(() => {
