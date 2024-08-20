@@ -21,6 +21,26 @@
 
       <div class="line first-line"></div>
       <div class="line second-line"></div>
+
+      <h2 class="text-decoration-underline font-weight-medium mt-4 mb-4">
+        Ingredients :
+      </h2>
+      <v-col
+        v-for="ingredient in ingredients"
+        :key="ingredient.id"
+        cols="12"
+        xs="12"
+        sm="6"
+        md="6"
+        lg="6"
+        xl="6"
+      >
+        <v-card>
+          <v-card-title class="text-center">
+            <h3 class="font-weight-regular">{{ ingredient.name }}</h3>
+          </v-card-title>
+        </v-card>
+      </v-col>
     </v-row>
   </v-container>
 </template>
