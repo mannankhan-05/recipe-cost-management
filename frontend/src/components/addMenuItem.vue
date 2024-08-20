@@ -99,7 +99,7 @@ export default defineComponent({
       // array of tuples with ingredient name and price
       ingredientNames: [] as [number, string][],
       name: "" as string,
-      price: 0 as number,
+      price: "" as string,
       picture: "" as string,
       recipe: "" as string,
       imageUrl: "" as string,
@@ -134,7 +134,7 @@ export default defineComponent({
     },
     async addMenuItem() {
       this.buttonLoader = true;
-
+      let totalPrice = 0;
       for (let i = 0; i < this.selectedIngredients.length; i++) {
         // get the price of the selected ingredients
         let res = await axios.get("http://localhost:5000/getIngredientPrice", {
@@ -142,9 +142,11 @@ export default defineComponent({
             name: this.selectedIngredients[i],
           },
         });
+
         let ingredientPrice = res.data.price;
-        this.price += ingredientPrice;
+        totalPrice += ingredientPrice;
       }
+      this.price = (totalPrice * 1.1).toFixed(2);
 
       const formData = new FormData();
       formData.append("name", this.name);
@@ -181,7 +183,7 @@ export default defineComponent({
       }
 
       this.name = "";
-      this.price = 0;
+      this.price = "";
       this.picture = "";
       this.recipe = "";
       this.imageUrl = "";
