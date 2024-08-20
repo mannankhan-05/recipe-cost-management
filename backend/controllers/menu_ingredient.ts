@@ -30,7 +30,13 @@ export const getSingleMenuWithIngredients = (req: Request, res: Response) => {
     })
     .then((menuItem) => {
       logger.info(`Fetched ingredients of menu where menu_id = ${id}`);
-      res.status(200).json(menuItem);
+      const result = menuItem.map((item: any) => {
+        if (item.ingredient.picture) {
+          item.ingredient.picture = `http://localhost:5000/ingredientImages/${item.ingredient.picture}`;
+        }
+        return item;
+      });
+      res.status(200).json(result);
     })
     .catch((err) => {
       logger.error(`Error fetching ingredients of menu where menu_id = ${id}`);

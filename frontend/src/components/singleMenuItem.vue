@@ -21,26 +21,36 @@
 
       <div class="line first-line"></div>
       <div class="line second-line"></div>
+      <div class="font-weight-medium text-center menuItemPrice">
+        Price : {{ menuItem.price }}$
+      </div>
 
-      <h2 class="text-decoration-underline font-weight-medium mt-4 mb-4">
-        Ingredients :
-      </h2>
-      <v-col
-        v-for="ingredient in ingredients"
-        :key="ingredient.id"
-        cols="12"
-        xs="12"
-        sm="6"
-        md="6"
-        lg="6"
-        xl="6"
-      >
-        <v-card>
-          <v-card-title class="text-center">
-            <h3 class="font-weight-regular">{{ ingredient.name }}</h3>
-          </v-card-title>
-        </v-card>
-      </v-col>
+      <div class="line first-line"></div>
+      <div class="line second-line"></div>
+
+      <v-row class="ingredients">
+        <v-col
+          v-for="item in ingredients"
+          :key="item.id"
+          cols="12"
+          xs="12"
+          sm="6"
+          md="6"
+          lg="4"
+          xl="3"
+        >
+          <v-card variant="outlined" max-width="400" height="70" class="pa-2">
+            <h3 class="font-weight-regular">
+              {{ item.ingredient.name }}
+            </h3>
+            <img
+              class="ingredientImage"
+              :src="item.ingredient.picture"
+              alt=""
+            />
+          </v-card>
+        </v-col>
+      </v-row>
     </v-row>
   </v-container>
 </template>
@@ -79,6 +89,16 @@ export default defineComponent({
   height: 10%;
   border: 0.5px solid black;
   border-radius: 5px;
+}
+
+.ingredientImage {
+  width: 25%;
+  height: 100%;
+  border: 0.5px solid black;
+  border-radius: 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .recipe {
@@ -124,5 +144,17 @@ export default defineComponent({
 
 .second-line {
   margin-bottom: 30px;
+}
+
+.ingredients {
+  margin-bottom: 50px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.menuItemPrice {
+  width: 100%;
+  font-size: 24px;
 }
 </style>
