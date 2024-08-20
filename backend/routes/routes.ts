@@ -3,6 +3,7 @@ import {
   getAllIngredients,
   addIngredient,
   getIngredientId,
+  getIngredientPrice,
 } from "../controllers/ingredient";
 import {
   getAllMenuItems,
@@ -23,6 +24,8 @@ router.get("/ingredients", getAllIngredients);
 router.post("/addIngredient", addIngredient);
 
 router.get("/getIngredientId", getIngredientId);
+
+router.get("/getIngredientPrice", getIngredientPrice);
 
 router.get("/menuItems", getAllMenuItems);
 

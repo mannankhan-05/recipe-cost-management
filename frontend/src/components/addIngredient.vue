@@ -22,7 +22,7 @@
           ></v-text-field>
           <v-text-field
             clearable
-            label="Price"
+            label="Price($)"
             variant="outlined"
             type="number"
             v-model="price"

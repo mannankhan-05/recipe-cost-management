@@ -19,13 +19,13 @@
             type="text"
             v-model="name"
           ></v-text-field>
-          <v-text-field
+          <!-- <v-text-field
             clearable
             label="Price"
             variant="outlined"
             type="number"
             v-model="price"
-          ></v-text-field>
+          ></v-text-field> -->
           <v-file-input
             name="menuImage"
             variant="outlined"
@@ -73,11 +73,7 @@
             variant="outlined"
             @click="addMenuItem"
             :disabled="
-              !name ||
-              !price ||
-              !picture ||
-              !recipe ||
-              selectedIngredients.length === 0
+              !name || !picture || !recipe || selectedIngredients.length === 0
             "
           >
             <div v-if="!buttonLoader">
@@ -138,6 +134,18 @@ export default defineComponent({
     },
     async addMenuItem() {
       this.buttonLoader = true;
+
+      for (let i = 0; i < this.selectedIngredients.length; i++) {
+        // get the price of the selected ingredients
+        let res = await axios.get("http://localhost:5000/getIngredientPrice", {
+          params: {
+            name: this.selectedIngredients[i],
+          },
+        });
+        let ingredientPrice = res.data.price;
+        this.price += ingredientPrice;
+      }
+
       const formData = new FormData();
       formData.append("name", this.name);
       formData.append("price", this.price != null ? this.price.toString() : "");
