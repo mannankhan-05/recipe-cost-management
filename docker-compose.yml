@@ -22,8 +22,14 @@ services:
   db:
     image: postgres
     environment:
-      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: amk@postgre
+      POSTGRES_USER: postgres
       POSTGRES_DB: recipe_cost_sys
     ports:
       - "5432:5432"
+    volumes:
+      # host path : guest path
+      - data:/var/lib/postgresql/data
+
+volumes:
+  data:
